@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.ahmad.sportyshoes.daos.ProductRepository;
 import com.ahmad.sportyshoes.entities.Product;
-import com.ahmad.sportyshoes.entities.ProductCategory;
 
 /**
  * ProductService
@@ -16,8 +15,7 @@ public class ProductService {
     @Autowired
     ProductRepository repo;
 
-    public void addProduct(Product product, String category) {
-        product.setCategory(new ProductCategory(category));
+    public void addProduct(Product product) {
         repo.save(product);
     }
 
