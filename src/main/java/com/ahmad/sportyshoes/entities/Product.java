@@ -51,4 +51,13 @@ public class Product {
         this.category = category;
     }
 
+    public Product() {
+    }
+
+    public Product(int id) {
+        this.id = id;
+    }
+
+    
+
 }

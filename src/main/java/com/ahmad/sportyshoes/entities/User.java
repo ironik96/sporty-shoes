@@ -15,6 +15,13 @@ public class User {
     private String fName;
     private String lName;
 
+    public User() {
+    }
+
+    public User(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

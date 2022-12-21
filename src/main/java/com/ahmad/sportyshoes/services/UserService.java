@@ -3,6 +3,7 @@ package com.ahmad.sportyshoes.services;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class UserService {
     @Autowired
     UserRepository repo;
 
+    public User getUserByEmail(String email) {
+        return repo.findById(email).get();
+    }
+
     public Iterable<User> getUsers() {
         return repo.findAll();
     }
@@ -31,7 +36,7 @@ public class UserService {
     public List<User> searchUsers(String query) {
         Set<User> results = new HashSet<User>();
 
-        results.addAll(repo.findByEmail(query));
+        results.add(getUserByEmail(query));
         results.addAll(repo.findByfName(query));
         results.addAll(repo.findBylName(query));
 

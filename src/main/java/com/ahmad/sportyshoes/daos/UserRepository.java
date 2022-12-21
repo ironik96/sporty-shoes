@@ -10,7 +10,6 @@ import com.ahmad.sportyshoes.entities.User;
  * UserRepository
  */
 public interface UserRepository extends CrudRepository<User, String> {
-    List<User> findByEmail(String email);
 
     List<User> findByfName(String fName);
 
