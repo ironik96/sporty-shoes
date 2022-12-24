@@ -35,6 +35,14 @@ public class ReceiptController {
         return null;
     }
 
+    @GetMapping("/receipts/{userEmail}")
+    public Iterable<Receipt> getUserReceipts(@PathVariable String userEmail) {
+        var user = userService.getUserByEmail(userEmail);
+        if (user.isPresent())
+            return service.getUserReceipts(user.get());
+        return null;
+    }
+
     @GetMapping("/receipts")
     public Iterable<Receipt> getAllReceipts() {
         return service.getAllReceipts();

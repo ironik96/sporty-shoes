@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.ahmad.sportyshoes.services.ReceiptService;
-
 /**
  * ReceiptItem
  */

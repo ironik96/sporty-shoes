@@ -14,4 +14,6 @@ public interface ReceiptRepository extends CrudRepository<Receipt, Integer> {
     boolean existsByUserAndStatus(User userEmail, Status status);
 
     Receipt findByUserAndStatus(User userEmail, Status status);
+
+    Iterable<Receipt> findAllByUserAndStatus(User userEmail, Status status);
 }

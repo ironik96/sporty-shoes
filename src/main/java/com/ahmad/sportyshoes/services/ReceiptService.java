@@ -28,6 +28,10 @@ public class ReceiptService {
         return receipt;
     }
 
+    public Iterable<Receipt> getUserReceipts(User user) {
+        return repo.findAllByUserAndStatus(user, Status.completed);
+    }
+
     public Iterable<Receipt> getAllReceipts() {
         return repo.findAll();
     }
