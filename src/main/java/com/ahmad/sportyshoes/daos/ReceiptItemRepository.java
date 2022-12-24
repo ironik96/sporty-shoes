@@ -2,6 +2,7 @@ package com.ahmad.sportyshoes.daos;
 
 import org.springframework.data.repository.CrudRepository;
 
+import com.ahmad.sportyshoes.entities.Receipt;
 import com.ahmad.sportyshoes.entities.ReceiptItem;
 
 /**
@@ -9,5 +10,6 @@ import com.ahmad.sportyshoes.entities.ReceiptItem;
  */
 public interface ReceiptItemRepository extends CrudRepository<ReceiptItem, Integer> {
 
-    
+    Iterable<ReceiptItem> findByReceipt(Receipt receipt);
+
 }

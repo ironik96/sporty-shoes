@@ -1,16 +1,16 @@
 package com.ahmad.sportyshoes.controllers;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ahmad.sportyshoes.entities.Receipt;
-import com.ahmad.sportyshoes.entities.User;
+import com.ahmad.sportyshoes.services.ReceiptItemService;
 import com.ahmad.sportyshoes.services.ReceiptService;
 import com.ahmad.sportyshoes.services.UserService;
 
@@ -24,6 +24,8 @@ public class ReceiptController {
     ReceiptService service;
     @Autowired
     UserService userService;
+    @Autowired
+    ReceiptItemService receiptItemService;
 
     @GetMapping("/receipt/{userEmail}")
     public Receipt getUserReceipt(@PathVariable String userEmail) {
@@ -39,10 +41,16 @@ public class ReceiptController {
     }
 
     @PostMapping("/receipt/{receiptId}")
-    public void checkout(@PathVariable int receiptId) {
+    public Map<String, Object> checkout(@PathVariable int receiptId) {
         var receipt = service.getReceipt(receiptId);
-        if (receipt.isPresent())
-            service.checkout(receipt.get());
+        if (receipt.isEmpty())
+            return null;
+        service.checkout(receipt.get());
+        var fullReceipt = new HashMap<String, Object>();
+        fullReceipt.put("receipt", receipt.get());
+        fullReceipt.put("items", receiptItemService.getReceiptItems(receipt.get()));
+        return fullReceipt;
+
     }
 
 }
