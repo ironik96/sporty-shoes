@@ -19,5 +19,8 @@ public class ReceiptItemService {
         repo.save(item);
     }
 
-    
+    public Iterable<ReceiptItem> getAllReceiptItems() {
+        return repo.findAll();
+    }
+
 }

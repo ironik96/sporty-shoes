@@ -1,32 +1,26 @@
 package com.ahmad.sportyshoes.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
 /**
  * ReceiptItem
  */
 @Entity
+@IdClass(ReceiptItemCompositeKey.class)
 public class ReceiptItem {
 
-    @Id
-    @GeneratedValue
-    private int id;
     private int qty;
+    @Id
     @ManyToOne
     private Receipt receipt;
+    @Id
     @ManyToOne
     private Product product;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getQty() {
         return qty;
@@ -63,9 +57,35 @@ public class ReceiptItem {
 
     @Override
     public String toString() {
-        return "ReceiptItem [id=" + id + ", qty=" + qty + ", receipt=" + receipt + ", product=" + product + "]";
+        return "ReceiptItem [qty=" + qty + ", receipt=" + receipt + ", product=" + product + "]";
     }
 
-    
+}
+
+/**
+ * ReceiptItemCompositeKey
+ */
+class ReceiptItemCompositeKey implements Serializable {
+    private Receipt receipt;
+    private Product product;
+
+    public ReceiptItemCompositeKey() {
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Integer receiptId) {
+        this.receipt = new Receipt(receiptId);
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Integer productId) {
+        this.product = new Product(productId);
+    }
 
 }

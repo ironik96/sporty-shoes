@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.ahmad.sportyshoes.services.ReceiptService;
+
 /**
  * ReceiptItem
  */
@@ -27,6 +29,10 @@ public class Receipt {
     private User user;
 
     public Receipt() {
+    }
+
+    public Receipt(int id) {
+        this.id = id;
     }
 
     public int getId() {

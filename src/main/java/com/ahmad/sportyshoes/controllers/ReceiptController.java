@@ -1,5 +1,7 @@
 package com.ahmad.sportyshoes.controllers;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +27,10 @@ public class ReceiptController {
 
     @GetMapping("/receipt/{userEmail}")
     public Receipt getUserReceipt(@PathVariable String userEmail) {
-        User user = userService.getUserByEmail(userEmail);
-        return service.getUserReceipt(user);
+        var user = userService.getUserByEmail(userEmail);
+        if (user.isPresent())
+            return service.getUserReceipt(user.get());
+        return null;
     }
 
     @GetMapping("/receipts")
@@ -36,8 +40,9 @@ public class ReceiptController {
 
     @PostMapping("/receipt/{receiptId}")
     public void checkout(@PathVariable int receiptId) {
-        Receipt receipt = service.getReceipt(receiptId);
-        service.checkout(receipt);
+        var receipt = service.getReceipt(receiptId);
+        if (receipt.isPresent())
+            service.checkout(receipt.get());
     }
 
 }

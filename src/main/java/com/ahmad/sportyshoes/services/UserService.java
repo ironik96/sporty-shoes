@@ -21,8 +21,8 @@ public class UserService {
     @Autowired
     UserRepository repo;
 
-    public User getUserByEmail(String email) {
-        return repo.findById(email).get();
+    public Optional<User> getUserByEmail(String email) {
+        return repo.findById(email);
     }
 
     public Iterable<User> getUsers() {
@@ -36,7 +36,9 @@ public class UserService {
     public List<User> searchUsers(String query) {
         Set<User> results = new HashSet<User>();
 
-        results.add(getUserByEmail(query));
+        var user = getUserByEmail(query);
+        if (user.isPresent())
+            results.add(user.get());
         results.addAll(repo.findByfName(query));
         results.addAll(repo.findBylName(query));
 

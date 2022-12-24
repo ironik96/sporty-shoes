@@ -1,5 +1,7 @@
 package com.ahmad.sportyshoes.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +40,7 @@ public class ReceiptService {
         repo.save(receipt);
     }
 
-    public Receipt getReceipt(int receiptId) {
-        return repo.findById(receiptId).get();
+    public Optional<Receipt> getReceipt(int receiptId) {
+        return repo.findById(receiptId);
     }
 }
